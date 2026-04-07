@@ -4,9 +4,17 @@ from src.stat_engine import StatEngine
 
 
 class TestStatEngine(unittest.TestCase):
-    def test_mean(self):
+    def test_mean_odd_list(self):
         engine = StatEngine([1, 2, 3, 4, 5])
         self.assertEqual(engine.get_mean(), 3.0)
+
+    def test_mean_even_list(self):
+        engine = StatEngine([2, 4, 6, 8])
+        self.assertEqual(engine.get_mean(), 5.0)
+
+    def test_median_odd(self):
+        engine = StatEngine([5, 1, 3])
+        self.assertEqual(engine.get_median(), 3.0)
 
     def test_median_even(self):
         engine = StatEngine([1, 2, 4, 3])
@@ -29,7 +37,8 @@ class TestStatEngine(unittest.TestCase):
         self.assertAlmostEqual(engine.get_variance(is_sample=True), 2.5)
         self.assertAlmostEqual(engine.get_variance(is_sample=False), 2.0)
 
-    def test_standard_deviation(self):
+    def test_standard_deviation_known_outcome(self):
+        # Known dataset where population standard deviation is exactly 2.
         engine = StatEngine([2, 4, 4, 4, 5, 5, 7, 9])
         self.assertAlmostEqual(engine.get_standard_deviation(is_sample=False), 2.0)
 
